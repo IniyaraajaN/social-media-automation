@@ -1,0 +1,20 @@
+[
+  {"id":"demo-001","days_ago":27,"type":"REEL","caption":"When the group chat says ‘quick call’","reach":12400,"likes":980,"comments":46,"shares":212,"saves":134},
+  {"id":"demo-002","days_ago":25,"type":"CAROUSEL_ALBUM","caption":"Me opening the fridge for the fifth time","reach":7600,"likes":702,"comments":38,"shares":89,"saves":116},
+  {"id":"demo-003","days_ago":23,"type":"IMAGE","caption":"Monday loading screen","reach":5100,"likes":401,"comments":19,"shares":55,"saves":34},
+  {"id":"demo-004","days_ago":21,"type":"REEL","caption":"POV: you said ‘one more episode’","reach":18300,"likes":1410,"comments":72,"shares":388,"saves":205},
+  {"id":"demo-005","days_ago":19,"type":"IMAGE","caption":"My plans vs. my social battery","reach":6400,"likes":534,"comments":43,"shares":102,"saves":88},
+  {"id":"demo-006","days_ago":18,"type":"REEL","caption":"Trying to be productive after lunch","reach":15200,"likes":1198,"comments":63,"shares":246,"saves":179},
+  {"id":"demo-007","days_ago":16,"type":"CAROUSEL_ALBUM","caption":"Things I will absolutely do tomorrow","reach":8300,"likes":755,"comments":56,"shares":117,"saves":164},
+  {"id":"demo-008","days_ago":15,"type":"IMAGE","caption":"A very accurate weather forecast","reach":4700,"likes":367,"comments":22,"shares":41,"saves":28},
+  {"id":"demo-009","days_ago":14,"type":"REEL","caption":"Me pretending I understood the assignment","reach":22100,"likes":1824,"comments":91,"shares":524,"saves":298},
+  {"id":"demo-010","days_ago":12,"type":"CAROUSEL_ALBUM","caption":"Five stages of seeing a typing bubble","reach":11800,"likes":1033,"comments":104,"shares":192,"saves":263},
+  {"id":"demo-011","days_ago":10,"type":"REEL","caption":"When the snack you wanted is sold out","reach":27400,"likes":2148,"comments":130,"shares":611,"saves":342},
+  {"id":"demo-012","days_ago":9,"type":"IMAGE","caption":"Small talk champion (in my head)","reach":7900,"likes":702,"comments":76,"shares":98,"saves":104},
+  {"id":"demo-013","days_ago":7,"type":"REEL","caption":"Me checking the delivery app every 30 seconds","reach":31800,"likes":2570,"comments":148,"shares":738,"saves":441},
+  {"id":"demo-014","days_ago":6,"type":"CAROUSEL_ALBUM","caption":"A guide to doing absolutely nothing","reach":14300,"likes":1315,"comments":119,"shares":201,"saves":391},
+  {"id":"demo-015","days_ago":4,"type":"IMAGE","caption":"My brain at 2 a.m.","reach":9200,"likes":861,"comments":68,"shares":177,"saves":143},
+  {"id":"demo-016","days_ago":3,"type":"REEL","caption":"When someone says ‘be there in five’","reach":36200,"likes":2961,"comments":182,"shares":904,"saves":518},
+  {"id":"demo-017","days_ago":2,"type":"CAROUSEL_ALBUM","caption":"Weekend plans: cancel everything","reach":17100,"likes":1537,"comments":121,"shares":318,"saves":429},
+  {"id":"demo-018","days_ago":1,"type":"REEL","caption":"Me trying to leave a party politely","reach":24800,"likes":1976,"comments":144,"shares":582,"saves":356}
+]

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meme Page Social Report</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #65718a;
+      --purple: #6547d5;
+      --pale: #f5f3fc;
+      --line: #e5e8ef;
+      --green: #16805d;
+      --red: #c34444;
+      --paper: #fff;
+      --bg: #f7f8fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.5 "Segoe UI", Arial, sans-serif;
+    }
+    .shell { max-width: 1120px; padding: 32px 24px 56px; margin: 0 auto; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 26px; }
+    h1 { margin: 0; font-size: clamp(25px, 4vw, 34px); letter-spacing: -.04em; }
+    h2 { margin: 0; font-size: 17px; letter-spacing: -.02em; }
+    .subtitle { color: var(--muted); margin: 5px 0 0; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 11px; border-radius: 99px; background: #eee9ff; color: #4d37a7; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .dot { width: 8px; height: 8px; border-radius: 99px; background: var(--green); }
+    .notice { border: 1px solid #eadfba; background: #fff9e9; color: #6b5616; padding: 12px 15px; border-radius: 10px; margin-bottom: 20px; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 12px; }
+    .period { color: var(--muted); font-size: 13px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    button, .button {
+      appearance: none; border: 0; border-radius: 9px; padding: 10px 14px;
+      background: var(--purple); color: white; font: inherit; font-weight: 650;
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+    }
+    button.secondary, .button.secondary { color: var(--ink); background: #fff; border: 1px solid var(--line); }
+    button:disabled { opacity: .58; cursor: wait; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .card, .panel { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 3px 14px #17203308; }
+    .metric { padding: 18px; }
+    .metric-label { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+    .metric-value { margin-top: 5px; font-size: 28px; font-weight: 750; letter-spacing: -.04em; }
+    .metric-foot { margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .content { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(290px, .85fr); gap: 16px; margin-top: 16px; align-items: start; }
+    .panel { padding: 19px; }
+    .panel-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
+    .panel-note { color: var(--muted); font-size: 12px; margin-top: 3px; }
+    table { border-collapse: collapse; width: 100%; }
+    th { color: var(--muted); font-size: 11px; letter-spacing: .05em; text-align: left; padding: 0 8px 10px; }
+    td { border-top: 1px solid var(--line); padding: 12px 8px; vertical-align: top; font-size: 13px; }
+    td:first-child, th:first-child { padding-left: 0; }
+    .rank { color: var(--purple); font-weight: 750; }
+    .caption { font-weight: 650; }
+    .post-meta { color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .rate { white-space: nowrap; font-weight: 700; }
+    .ai-copy { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+    .ai-result { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 14px; display: none; }
+    .summary { background: var(--pale); border-radius: 9px; padding: 11px; margin-bottom: 12px; font-size: 13px; }
+    .result-title { font-size: 12px; color: var(--muted); font-weight: 700; margin: 11px 0 5px; }
+    .ideas { margin: 0; padding-left: 19px; font-size: 13px; }
+    .ideas li { margin: 5px 0; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { padding: 4px 8px; border-radius: 99px; background: #f0edfb; color: #514096; font-size: 12px; }
+    .status { color: var(--muted); font-size: 12px; min-height: 20px; margin-top: 10px; }
+    .pdf-panel { margin-top: 16px; }
+    iframe { display: block; width: 100%; height: 560px; border: 1px solid var(--line); border-radius: 9px; background: #f4f5f8; }
+    .empty { color: var(--muted); padding: 24px 0; text-align: center; }
+    @media (max-width: 800px) {
+      .content { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      header, .toolbar { align-items: flex-start; flex-direction: column; }
+      iframe { height: 450px; }
+      .table-wrap { overflow-x: auto; }
+      table { min-width: 570px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <h1>Meme Page Performance</h1>
+        <p class="subtitle">Biweekly report and local AI ideas</p>
+      </div>
+      <div class="badge"><span class="dot" id="ollamaDot"></span><span id="sourceBadge">MOCK DATA · LOCAL DEMO</span></div>
+    </header>
+
+    <div class="notice"><strong>Demo data:</strong> these figures are fictional sample posts. This dashboard is not connected to your Instagram account.</div>
+
+    <div class="toolbar">
+      <div>
+        <h2>Performance overview</h2>
+        <div class="period" id="periodText">Loading reporting period…</div>
+      </div>
+      <div class="actions">
+        <button class="secondary" id="analyzeButton" onclick="analyzeTopPost()">Get Ollama ideas</button>
+        <button id="reportButton" onclick="generateReport()">Generate PDF report</button>
+      </div>
+    </div>
+
+    <section class="cards" aria-label="Current period metrics">
+      <article class="card metric"><div class="metric-label">TOTAL REACH</div><div class="metric-value" id="reachValue">—</div><div class="metric-foot" id="reachChange">vs previous period</div></article>
+      <article class="card metric"><div class="metric-label">INTERACTIONS</div><div class="metric-value" id="interactionValue">—</div><div class="metric-foot" id="interactionChange">vs previous period</div></article>
+      <article class="card metric"><div class="metric-label">ENGAGEMENT RATE</div><div class="metric-value" id="rateValue">—</div><div class="metric-foot" id="rateChange">vs previous period</div></article>
+    </section>
+
+    <section class="content">
+      <article class="panel">
+        <div class="panel-head"><div><h2>Top 3 posts this period</h2><div class="panel-note">Ranked by interactions ÷ reach</div></div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>POST</th><th>TYPE</th><th>REACH</th><th>ENG. RATE</th></tr></thead>
+            <tbody id="topPosts"><tr><td colspan="5" class="empty">Loading posts…</td></tr></tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><div><h2>Local AI ideas</h2><div class="panel-note" id="ollamaStatus">Checking Ollama…</div></div></div>
+        <p class="ai-copy">Ask the local model to analyze the top post. It suggests two caption rewrites and three hashtags; verified metric figures are checked by the app.</p>
+        <button class="secondary" id="ideaButton" onclick="analyzeTopPost()">Analyze top post</button>
+        <div class="status" id="ideaStatus" role="status"></div>
+        <div class="ai-result" id="aiResult">
+          <div class="summary" id="summaryText"></div>
+          <div class="result-title">CAPTION OPTIONS</div>
+          <ol class="ideas" id="captionIdeas"></ol>
+          <div class="result-title">SUGGESTED HASHTAGS</div>
+          <div class="tags" id="hashtagIdeas"></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel pdf-panel">
+      <div class="panel-head">
+        <div><h2>Latest PDF report</h2><div class="panel-note" id="pdfStatus">The generated report will appear here.</div></div>
+        <a class="button secondary" id="openPdf" href="/output/report.pdf" target="_blank" rel="noreferrer">Open PDF</a>
+      </div>
+      <iframe id="pdfFrame" title="Latest biweekly report" src="/output/report.pdf"></iframe>
+    </section>
+  </main>
+
+  <script>
+    const number = value => Number(value || 0).toLocaleString();
+    const percentChange = (current, previous) => previous === 0 ? (current ? "new" : "0%") : `${((current - previous) / previous * 100).toFixed(1)}%`;
+    const ppChange = (current, previous) => `${(current - previous >= 0 ? "+" : "")}${(current - previous).toFixed(2)} pp`;
+
+    async function loadDashboard() {
+      const response = await fetch('/api/dashboard');
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Could not load the dashboard.');
+      document.getElementById('periodText').textContent = `${data.current_period} · compared with ${data.previous_period}`;
+      document.getElementById('reachValue').textContent = number(data.current.reach);
+      document.getElementById('interactionValue').textContent = number(data.current.interactions);
+      document.getElementById('rateValue').textContent = `${data.current.engagement_rate.toFixed(2)}%`;
+      document.getElementById('reachChange').textContent = `${percentChange(data.current.reach, data.previous.reach)} vs previous period`;
+      document.getElementById('interactionChange').textContent = `${percentChange(data.current.interactions, data.previous.interactions)} vs previous period`;
+      document.getElementById('rateChange').textContent = `${ppChange(data.current.engagement_rate, data.previous.engagement_rate)} vs previous period`;
+      document.getElementById('topPosts').innerHTML = data.top_posts.map((post, index) => `
+        <tr>
+          <td class="rank">${index + 1}</td>
+          <td><div class="caption">${escapeHtml(post.caption)}</div><div class="post-meta">${post.published_at} · ${number(post.interactions)} interactions</div></td>
+          <td>${escapeHtml(post.post_type)}</td><td>${number(post.reach)}</td><td class="rate">${post.engagement_rate.toFixed(2)}%</td>
+        </tr>`).join('') || '<tr><td colspan="5" class="empty">No posts in this reporting period.</td></tr>';
+      const running = data.ollama.running;
+      document.getElementById('ollamaStatus').textContent = running
+        ? `Ollama is running${data.ollama.models.length ? ` · ${data.ollama.models.join(', ')}` : ''}`
+        : 'Ollama is not running. Start it to generate AI ideas.';
+      document.getElementById('ollamaDot').style.background = running ? 'var(--green)' : 'var(--red)';
+      document.getElementById('pdfStatus').textContent = data.report_available ? 'Showing the latest generated report.' : 'Generate a report to create the first PDF.';
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    }
+
+    async function analyzeTopPost() {
+      const button = document.getElementById('ideaButton');
+      const topButton = document.getElementById('analyzeButton');
+      button.disabled = true; topButton.disabled = true;
+      document.getElementById('ideaStatus').textContent = 'Asking Ollama locally… the first response may take a little while.';
+      try {
+        const response = await fetch('/api/analyze-top-post', { method: 'POST' });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Analysis failed.');
+        document.getElementById('summaryText').textContent = data.performance_summary;
+        document.getElementById('captionIdeas').innerHTML = data.caption_options.map(item => `<li>${escapeHtml(item)}</li>`).join('');
+        document.getElementById('hashtagIdeas').innerHTML = data.hashtags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('');
+        document.getElementById('aiResult').style.display = 'block';
+        document.getElementById('ideaStatus').textContent = `Ideas for: ${data.post_caption}`;
+      } catch (error) {
+        document.getElementById('ideaStatus').textContent = error.message;
+      } finally {
+        button.disabled = false; topButton.disabled = false;
+      }
+    }
+
+    async function generateReport() {
+      const button = document.getElementById('reportButton');
+      button.disabled = true;
+      document.getElementById('pdfStatus').textContent = 'Generating report and local AI ideas…';
+      try {
+        const response = await fetch('/api/generate-report', { method: 'POST' });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Report generation failed.');
+        const freshPdf = `${data.pdf_url}?t=${Date.now()}`;
+        document.getElementById('pdfFrame').src = freshPdf;
+        document.getElementById('openPdf').href = freshPdf;
+        document.getElementById('pdfStatus').textContent = 'Report generated successfully.';
+        await loadDashboard();
+      } catch (error) {
+        document.getElementById('pdfStatus').textContent = error.message;
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    loadDashboard().catch(error => {
+      document.getElementById('periodText').textContent = error.message;
+      document.getElementById('topPosts').innerHTML = `<tr><td colspan="5" class="empty">${escapeHtml(error.message)}</td></tr>`;
+    });
+  </script>
+</body>
+</html>
