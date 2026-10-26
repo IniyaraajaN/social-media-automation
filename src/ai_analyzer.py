@@ -23,9 +23,24 @@ REQUIRED_METRICS = ("reach", "likes", "comments", "shares", "saves")
 OUTPUT_SCHEMA: dict[str, Any] = {
     "type": "object",
     "properties": {
-        "performance_summary": {"type": "array", "items": {"type": "string"}, "minItems": 2, "maxItems": 2},
-        "caption_options": {"type": "array", "items": {"type": "string"}},
-        "hashtags": {"type": "array", "items": {"type": "string"}},
+        "performance_summary": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 2,
+            "maxItems": 2,
+        },
+        "caption_options": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 2,
+            "maxItems": 2,
+        },
+        "hashtags": {
+            "type": "array",
+            "items": {"type": "string", "pattern": "^#\\S+$"},
+            "minItems": 3,
+            "maxItems": 3,
+        },
     },
     "required": ["performance_summary", "caption_options", "hashtags"],
     "additionalProperties": False,
@@ -46,9 +61,9 @@ def _request_local_model(messages: list[dict[str, str]], model: str, client: Any
             response = client.chat(
                 model=model,
                 messages=messages,
-                format="json",
+                format=OUTPUT_SCHEMA,
                 stream=False,
-                options={"temperature": 0.5},
+                options={"temperature": 0.2},
             )
         else:
             base_url = os.getenv("OLLAMA_BASE_URL", DEFAULT_OLLAMA_URL).strip().rstrip("/")
@@ -56,9 +71,9 @@ def _request_local_model(messages: list[dict[str, str]], model: str, client: Any
                 {
                     "model": model,
                     "messages": messages,
-                    "format": "json",
+                    "format": OUTPUT_SCHEMA,
                     "stream": False,
-                    "options": {"temperature": 0.5},
+                    "options": {"temperature": 0.2},
                 }
             ).encode("utf-8")
             request = urllib.request.Request(
